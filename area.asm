@@ -4,9 +4,8 @@
 ; Date: 2023/04/24
 
 section .data
-    pi dq 3.14              ; represents a float of pi
-    radius dd 5            ; the radius of our circle
-    msg db 'A circle with a radius %d with area %f', 10, 0   ; the message we will be printing
+    dist dd 15            ; the result of our circle
+    msg db  'A square with a side of %d has an area of %d', 10, 0 ; Message we are printing
 
 section .bss
 ;     result resd 10          ; varaible that will be the result of the area.
@@ -17,10 +16,13 @@ section .text
 global main
 
 main: 
+
+    mul ah, [result]
+
     push rbp
     mov rbp, rsp
     mov rdi, msg ; Message we are initalizing
-    mov rsi, [radius] ; First message we are appending
+    mov rsi, [result] ; First message we are appending
     mov rax, 0;
     call printf ; calls printf
     mov rsp, rbp 

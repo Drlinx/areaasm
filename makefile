@@ -3,7 +3,9 @@ area: area.o
 area.o: area.asm
      nasm -f elf64 -g -F dwarf area.asm -l area.lst
 
-make: area.asm area.o
+make:
+     nasm -f elf64 -g -F dwarf area.asm -l area.lst
+     gcc -o area area.o -no-pie
 
 clean:
      rm ./area.o ./area
