@@ -4,7 +4,8 @@
 ; Date: 2023/04/24
 
 section .data
-    dist dd 15            ; the result of our circle
+    dist dd 0xF            ; the result of our circle
+    ans dd 0x0
     msg db  'A square with a side of %d has an area of %d', 10, 0 ; Message we are printing
 
 section .bss
@@ -16,17 +17,25 @@ section .text
 global main
 
 main: 
+    mov eax, [dist]
+    mov ebx, eax
+    mov eax, [dist]
+    mul ebx
 
-    mul ah, [result]
+    mov [ans], eax
+
+
+
 
     push rbp
     mov rbp, rsp
-    mov rdi, msg ; Message we are initalizing
-    mov rsi, [result] ; First message we are appending
-    mov rax, 0;
-    call printf ; calls printf
-    mov rsp, rbp 
-    pop rbp
+    mov rax, 0x2 
+    mov rdi, msg ; message we are printing
+    movsd xmm0, [ans]
+    mov xmm1, [dist]
+    mov rax, 0
+    call printf
+
 
     ; successful exist aka return 0
     mov rax, 60
