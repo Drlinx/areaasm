@@ -29,11 +29,11 @@ main:
 
     push rbp
     mov rbp, rsp
-    mov rax, 0x2 
-    mov rdi, msg ; message we are printing
-    movsd xmm0, [ans]
-    mov xmm1, [dist]
-    mov rax, 0
+    mov rax, 2 ; setting up the two xmm registers
+    ; mov rdi, msg ; message we are printing
+    movsd rdi, msg
+    movsd xmm0, [dist]
+    movsd xmm1, [ans]
     call printf
 
 
