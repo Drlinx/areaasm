@@ -6,7 +6,7 @@
 section .data
     dist dd 0xF            ; the result of our circle
     ans dd 0x0
-    msg db  'A square with a side of %d has an area of %d', 10, 0 ; Message we are printing
+    msg db  'A square with a side of %ld has an area of %ld', 10, 0 ; Message we are printing
 
 section .bss
 ;     result resd 10          ; varaible that will be the result of the area.
@@ -17,12 +17,12 @@ section .text
 global main
 
 main: 
-    mov eax, [dist]
-    mov ebx, eax
-    mov eax, [dist]
-    mul ebx
+    mov eax, [dist] ; intializes eax to 15
+    mov ebx, eax    ; intailzes ebx to eax
+    mov eax, [dist] ; changes eax to now 15
+    mul ebx         ; multiplies eax by ebx
 
-    mov [ans], eax
+    mov [ans], eax  ; places eax into ans
 
 
 
@@ -30,10 +30,10 @@ main:
     push rbp
     mov rbp, rsp
     mov rax, 2 ; setting up the two xmm registers
+    mov rdi, msg
     ; mov rdi, msg ; message we are printing
-    movsd rdi, msg
-    movsd xmm0, [dist]
-    movsd xmm1, [ans]
+    ;movsd xmm0, [dist] ; element one for the first %d
+    ;movsd xmm1, [ans] ; element two for the second %d
     call printf
 
 
