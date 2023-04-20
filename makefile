@@ -1,11 +1,12 @@
-area: area.o
-     gcc -o area area.o -no-pie
+CC=gcc
+AS=nasm
+ASF=-f elf64 -g -F dwarf
+CFlags= -no-pie -g -Wall -o
+
+all: Area.o Area
+
 area.o: area.asm
-     nasm -f elf64 -g -F dwarf area.asm -l area.lst
+	gcc -o area area.o -no-pie
 
-make:
-     nasm -f elf64 -g -F dwarf area.asm -l area.lst
-     gcc -o area area.o -no-pie
-
-clean:
-     rm ./area.o ./area
+area: area.o
+	nasm -f elf64 -g -F dwarf area.asm -l area.lst
