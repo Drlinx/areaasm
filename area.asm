@@ -5,11 +5,9 @@
 
 section .data
     dist dq 15.00            ; The side length of the square
-    ans dq 0.0              ; The result
     msg db  'A square with a side of %f has an area of %f', 10, 0 ; Message we are printing
 
 section .bss
-;     result resd 10          ; varaible that will be the result of the area.
 
 section .text
     extern printf
@@ -18,17 +16,19 @@ global main
 
 main: 
 
+    ; Preparing xmm for printf
+    movsd xmm0, [dist] ; sets the first xmm register to dist
+    movsd xmm1, [dist] ; sets the second xmm register to dist
+    mulsd xmm1, [dist] ; multiplies the second xmm register by dist
+
+    ; Calling printf
     push rbp
     mov rbp, rsp
     mov rax, 2 ; setting up the two xmm registers
-    movsd xmm0, [dist] ; element one for the first %d
-    movsd xmm2, [dist]
-    mulsd xmm2, [dist]
-    movsd [ans], xmm2
-    movsd xmm1, [ans] ; element two for the second %d
-    mov rdi, msg
+    mov rdi, msg ; Sets up the message
     call printf
 
+    ; clears print f
     mov rsp, rbp
     pop rbp
 
