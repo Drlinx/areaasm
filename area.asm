@@ -4,7 +4,7 @@
 ; Date: 2023/04/24
 
 section .data
-    dist dq 15.00            ; The side length of the square
+    dist dq 15.0            ; The side length of the square
     msg db  'A square with a side of %f has an area of %f', 10, 0 ; Message we are printing
 
 section .bss

@@ -1,0 +1,7 @@
+Author: Kassidy Maberry
+File: README.md
+Assignment: Assembly
+Date: 2023/04/24
+
+Output:
+A square with a side of 15.000000 has an area of 225.000000

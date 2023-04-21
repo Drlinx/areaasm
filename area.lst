@@ -1,0 +1,49 @@
+     1                                  ; Author: Kassidy Maberry
+     2                                  ; Assignment: assembly
+     3                                  ; File: area.asm
+     4                                  ; Date: 2023/04/24
+     5                                  
+     6                                  section .data
+     7 00000000 0000000000002E40            dist dq 15.0            ; The side length of the square
+     8 00000008 412073717561726520-         msg db  'A square with a side of %f has an area of %f', 10, 0 ; Message we are printing
+     8 00000011 776974682061207369-
+     8 0000001A 6465206F6620256620-
+     8 00000023 68617320616E206172-
+     8 0000002C 6561206F662025660A-
+     8 00000035 00                 
+     9                                  
+    10                                  section .bss
+    11                                  
+    12                                  section .text
+    13                                      extern printf
+    14                                  
+    15                                  global main
+    16                                  
+    17                                  main: 
+    18                                  
+    19                                      ; Preparing xmm for printf
+    20 00000000 F20F100425-                 movsd xmm0, [dist] ; sets the first xmm register to dist
+    20 00000005 [00000000]         
+    21 00000009 F20F100C25-                 movsd xmm1, [dist] ; sets the second xmm register to dist
+    21 0000000E [00000000]         
+    22 00000012 F20F590C25-                 mulsd xmm1, [dist] ; multiplies the second xmm register by dist
+    22 00000017 [00000000]         
+    23                                  
+    24                                      ; Calling printf
+    25 0000001B 55                          push rbp
+    26 0000001C 4889E5                      mov rbp, rsp
+    27 0000001F B802000000                  mov rax, 2 ; setting up the two xmm registers
+    28 00000024 48BF-                       mov rdi, msg ; Sets up the message
+    28 00000026 [0800000000000000] 
+    29 0000002E E8(00000000)                call printf
+    30                                  
+    31                                      ; clears print f
+    32 00000033 4889EC                      mov rsp, rbp
+    33 00000036 5D                          pop rbp
+    34                                  
+    35                                  
+    36                                      ; successful exist aka return 0
+    37 00000037 B83C000000                  mov rax, 60
+    38 0000003C BF00000000                  mov rdi, 0
+    39 00000041 0F05                        syscall
+    40                                  
